@@ -66,8 +66,7 @@ def obtener_caracteristicas(lista_nombres):
 		#longitud = 
 		#vocales = 
 		#print "VOCALES: ", vocales
-		#voc_con = float(vocales) / (len(cada_nombre) - vocales)
-
+		
 		#X.append(longitud)
 		#Y.append(voc_con)
 	return X, Y
