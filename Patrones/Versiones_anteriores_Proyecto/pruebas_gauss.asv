@@ -1,0 +1,6 @@
+close all 
+x1 = 0:1:100;
+mu = [0 0; 0 0];
+sigma = [3 0; 0 3];
+
+normrnd(mu,sigma,2,2)

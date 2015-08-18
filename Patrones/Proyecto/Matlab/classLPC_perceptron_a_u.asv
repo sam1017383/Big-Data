@@ -1,0 +1,106 @@
+%Limpia el ambiente del interprete
+clear;
+close all;
+%Constantes
+Fs = 16000; %Frecuencia de muestreo
+w = hamming(160)'; %Ventana que se aplica a cada frame
+%Paths donde se guardaron las se�ales truncadas y se escriben los
+%resultados
+pathread = '/';
+pathwrite = '/';
+%numero de centroides por entrenamiento
+nCentroids = 8;
+fileID = fopen([pathread 's.txt']);
+%siempre es 8 LPCs
+vq_1 = vq_from_txt(fileID, nCentroids);
+
+
+fileID = fopen([pathread 'm.txt']);
+vq_2 = vq_from_txt(fileID, nCentroids);
+
+feat_1 = feat_from_lpc(vq_1,nCentroids);
+feat_2 = feat_from_lpc(vq_2,nCentroids);
+
+y = [ -1 -1 -1 -1 -1 -1 -1 -1 1 1 1 1 1 1 1 1  ];
+X_t = [feat_1 feat_2];
+
+%anado una componente en 1 para w_8
+X_t(3,:) = 1;
+w_ini = [ 1 1 1 ]';
+w_perce = perce(X_t, y, w_ini);
+g = dot(w_perce(1:2), [20 0.2]) + w_perce(3)
+x_max = max(max(feat_1(1)))
+I1 = [0:1:20];
+I2 = ((-w_perce(1).*I1) - w_perce(3))/w_perce(2);
+
+hold all
+figure (1)
+plot(I1, I2, 'c');
+for i = 1:nCentroids
+    plot(feat_1(1,i), feat_1(2,i), 'r+');
+    plot(feat_2(1,i), feat_2(2,i), 'b+');
+end
+
+% figure1 = figure (1);
+% plot(1:8,w_perce,'ro','LineWidth',4);
+
+% 
+% %AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+% %Carga se�ales en .wav
+% test_a = wavread('test_a.wav');
+% test_a = truncate(test_a);
+% %wavplay(test_a, 16000)
+% clear frames
+% clear lpcframes
+% numframes = floor(((length(test_a)-160)/64));
+% %itero en cada frame 
+% for fr = 0:numframes
+%     %Calculo de indices de inicio y fin del 
+%     inicio = (fr*64) + 1;
+%     fin = inicio + 159;
+%     frame = test_a(inicio:fin);
+%     %Ventaneo
+%     windowed = frame.*w;
+%     %Division de la se�al en frames
+%     frames(fr+1,:) = windowed;
+%     %Se obtienen los coeficientes LPC
+%     lpcframes(fr+1,:) = lpc(windowed, 7);
+% end
+% %Cuantizador vectorial
+% vq_test_a = lbg(lpcframes, 1);
+% while (sum(vq_test_a(:,1)) < 1)
+%     vq_test_a = lbg(lpcframes, 1);
+% end
+% 
+% vq_test_a = vq_test_a(:,2:8)
+% g = dot(w_perce(1:7), vq_test_a(1,:)) + w_perce(8)
+% 
+% %UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU
+% %Carga se�ales en .wav
+% test_u = wavread('test_u.wav');
+% test_u = truncate(test_u);
+% %wavplay(test_a, 16000)
+% clear frames
+% clear lpcframes
+% numframes = floor(((length(test_u)-160)/64));
+% %itero en cada frame 
+% for fr = 0:numframes
+%     %Calculo de indices de inicio y fin del 
+%     inicio = (fr*64) + 1;
+%     fin = inicio + 159;
+%     frame = test_u(inicio:fin);
+%     %Ventaneo
+%     windowed = frame.*w;
+%     %Division de la se�al en frames
+%     frames(fr+1,:) = windowed;
+%     %Se obtienen los coeficientes LPC
+%     lpcframes(fr+1,:) = lpc(windowed, 7);
+% end
+% %Cuantizador vectorial
+% vq_test_u = lbg(lpcframes, 1);
+% while (sum(vq_test_u(:,1)) < 1)
+%     vq_test_u = lbg(lpcframes, 1);
+% end
+% 
+
+% 

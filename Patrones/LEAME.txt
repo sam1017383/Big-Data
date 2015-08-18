@@ -1,0 +1,13 @@
+Proyecto final de Reconocimiento de patrones
+
+Samuel Salvador Vazquez Sanchez
+
+El archivo .rar contiene:
+
+-Proyecto_patrones.m (programa principal que se debe ejecutar)
+	Carga los archivos de grabación .wav y genera los entrenamientos, clasificadores,
+	evalua las señales de pruebas e imprime las estadísticas de clasificación
+
+-Todas las funciones individuales .m de los algoritmos de clasificación
+
+-Archivos de entrenamiento y pruebas .wav (Se pueden reproducir con cualquier reproductor)
