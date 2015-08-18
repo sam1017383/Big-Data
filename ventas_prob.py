@@ -1,4 +1,4 @@
-mat_prob = {"alto": {"alto":0.97, "medio":0.029, "bajo": 0}, "medio": {"alto":0.145, "medio":0.778, "bajo": 0.077}, "bajo": {"alto":0, "medio":0.508, "bajo": 0.492}}
+mat_prob = {"alto": {"alto":0.971, "medio":0.029, "bajo": 0}, "medio": {"alto":0.145, "medio":0.778, "bajo": 0.077}, "bajo": {"alto":0, "medio":0.508, "bajo": 0.492}}
 
 obs = ["alto", "medio", "bajo", "bajo"]
 

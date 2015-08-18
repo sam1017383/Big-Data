@@ -1,0 +1,31 @@
+% El modelo tiene dos estados que significan dos dados:
+% Un dado es de seis lados nombrados del 1-6, esto hace que cada lado sea
+% equiprobable.
+clc
+% El otro lado tiene doce lados de los cuales 7 tienen escrito "1" y el
+% resto del 2-7. Esto hace que el dado este cargado a mostrar 1.
+% Las probabilidades de observar cada lado se expresan en la matriz EMIS
+% Quien juega con los dados tiene las probabilidades de alternar de dado
+% segun obtenga cara o cruz con dos monedas cargadas una roja y una verde
+% la matriz TRANS expresa las probabilidades que causa depender de las
+% monedas cargadas para cambiar de dado
+
+TRANSICIONES = [.9 .1; .05 .95;]
+EMISIONES = [1/6, 1/6, 1/6, 1/6, 1/6, 1/6;7/12, 1/12, 1/12, 1/12, 1/12, 1/12]
+
+
+% Teniendo el modelo probabilistico podemos simular secuencias que siguen
+% el modelo
+[observaciones,estados] = hmmgenerate(10,TRANSICIONES,EMISIONES)
+
+% Para conocer la probalidad de que el modelo reproduzca la secuencia de
+% observaciones se usa hmmdecode
+
+[prob_con_tk, prob_log] = hmmdecode(observaciones, TRANSICIONES, EMISIONES)
+
+% Si modificamos la secuencia de observaciones de manera arbitraria, las
+% observaciones en lo general no se apegan al modelo descrito, por lo que
+% su probabilidad baja
+
+
+

@@ -59,7 +59,7 @@ obs = ["h","o","l","a"]
 
 
 names = [
-"ADELFRIED",
+"ADELFRIED",   # A,D  D,E  E,L 
 "BERNADETTE",
 "CARLEIGH",
 "DAGOBERT",
